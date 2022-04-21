@@ -152,3 +152,80 @@ Changes to be committed:
 ```bash
 git commit -m"完成文件名变更"
 ```
+
+## 4 通过git log查看版本演变历史
+
+git log命令
+
+### 查看当前分支的历史log
+
+```bash
+git log
+```
+
+输出
+
+```console
+commit 1d6aef8ede19a16ae3f7806b937feadce2ee55df (HEAD -> master)
+Author: eric <6350938@qq.com>
+Date:   Thu Apr 21 14:57:33 2022 +0800
+
+    文件命名
+
+commit 907e4ba5a39015213f800a31dc9427f74166df8b
+Author: eric <6350938@qq.com>
+Date:   Thu Apr 21 13:46:29 2022 +0800
+
+    完成文件名变更
+... ...
+```
+
+### --oneline 以简洁模式查看历史log（一个commit一行）
+
+```bash
+git log --oneline
+```
+
+输出
+
+```console
+1d6aef8 (HEAD -> master) 文件命名
+907e4ba 完成文件名变更
+4feeba9 Add content in html & add styles & update readme.md
+605d5f8 Add title line in html & styles
+d6f57d2 Add index + logo
+4c90c64 add readme.md
+```
+
+### -n? 展示最近?次log
+
+```bash
+git log -n3 --oneline
+```
+
+```console
+1d6aef8 (HEAD -> master) 文件命名
+907e4ba 完成文件名变更
+4feeba9 Add content in html & add styles & update readme.md
+```
+
+### -all 展示所有分支log
+
+```bash
+git log --all
+```
+
+### 展示指定分支log（例如下面例子中的master分支）
+
+```bash
+git log master
+```
+
+### --graph 以图像方式展示log
+
+```bash
+git log -all -graph
+```
+
+1. 以上参数可按需要组合
+2. 可在浏览器中查看帮助文件git help --web log
