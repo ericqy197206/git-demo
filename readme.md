@@ -153,7 +153,7 @@ Changes to be committed:
 git commit -m"完成文件名变更"
 ```
 
-## 4 通过git log查看版本演变历史
+## 5 通过git log查看版本演变历史
 
 git log命令
 
@@ -229,3 +229,32 @@ git log -all -graph
 
 1. 以上参数可按需要组合
 2. 可在浏览器中查看帮助文件git help --web log
+
+## 6 gitk 通过图形界面工具来查看版本历史
+
+在工程目录下运行gitk
+
+```bash
+gitk
+```
+
+- 在windows平台下gitk中文乱码的解决方案:
+
+```bash
+git config --global gui.encoding utf-8
+```
+
+- git提交记录中author与committer不是同一个人的情况  
+committer从其他分支中选择一个版本进行更新提交，author是当时提交那个版本的作者，committer是当前执行commit操作的人
+
+- parent  
+每一次commit都有parent，为上次的基准版本; 除非是第一次提交才会没有parent
+
+- branch  
+哪些分支包含了这次commit
+
+- 定制
+在view菜单里选择edit view, 可定制界面，例如显示所有分支等等
+
+- 右键菜单
+右键菜单提供了很多功能，例如创建tag等
