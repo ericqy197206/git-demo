@@ -258,3 +258,46 @@ committer从其他分支中选择一个版本进行更新提交，author是当�
 
 - 右键菜单
 右键菜单提供了很多功能，例如创建tag等
+
+## 7 探索.git目录
+
+- CONFIG文件
+
+git仓库配置，即 git config --local 的配置项
+
+- HEAD文件
+内容为指向当前工作分支
+
+- refs目录
+heads目录中为分支信息
+tags目录中tag标签信息
+
+- objects目录
+所有的对象信息都存储这个目录下，包括commit、blob、tree  
+例如
+
+```bash
+$ find .git/objects/
+.git/objects/
+.git/objects//6a
+.git/objects//6a/85891810bcd4d5afa7e364d13d704dc603a73b    //这个是head指向的第一个对象
+.git/objects//pack
+.git/objects//7d
+.git/objects//7d/4e0fa616551318405e8309817bcfecb7224cff    // 这个是blob对象
+.git/objects//9a
+.git/objects//9a/327d5e3aa818b98ddaa7b5b369f5deb47dc9f6    //这个是tree对象,记录的是该层目录的信息，子目录依然是tree类型，文本类型是blob
+.git/objects//info
+```
+
+可以用git cat-file命令查看对象类型和内容
+
+```bash
+$git cat-file -t 6a85     // 查看对象类型
+commit
+$git cat-file -p 6a85     // 查看对象内容
+tree 9a327d5e3aa818b98ddaa7b5b369f5deb47dc9f6
+author xxx <> 1590659575 +0800
+committer xxx <> 1590659575 +0800
+
+add emphasis
+```
