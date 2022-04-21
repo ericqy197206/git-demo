@@ -52,3 +52,55 @@ git commit -m"add readme.md"
 ```
 
 _注：在windows下，如果commit注释中有空格，必须要用双引号._
+
+## 3 工作区和缓存区
+
+### 添加图片
+
+- 添加到暂存区
+
+```bash
+git add index.html images
+```
+
+- 提交到工作区
+
+```bash
+git commit -m"Add index + logo"
+```
+
+- 查看Git 日志
+
+```bash
+git log
+```
+
+### 添加CSS
+
+- 添加到暂存区
+
+```bash
+git add index.html styles
+```
+
+- 提交到工作区
+
+```bash
+git commit -m"Add title line in html & styles"
+```
+
+### 再次修改，填写html内容，并添加对应CSS样式
+
+- 添加到暂存区
+
+```bash
+git add -u
+```
+
+_注：如果只是修改了文件，没有新增删除，直接使用-u参数，git自动识别修改的文件
+
+- 提交到工作区
+
+```bash
+git commit -m"Add content in html & add styles"
+```
