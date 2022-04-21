@@ -104,3 +104,51 @@ _注：如果只是修改了文件，没有新增删除，直接使用-u参数�
 ```bash
 git commit -m"Add content in html & add styles"
 ```
+
+## 4 文件重命名
+
+### 方法1
+
+```cmd
+move index.html git.html
+git add git.html
+git rm index.html
+```
+
+git status 可见
+
+```console
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    index.html -> git.html
+```
+
+### 方法2
+
+- 先还原
+
+```bash
+git reset --hard    # 清除当前工作区及暂存区，从当前最新版本中恢复工作区
+```
+
+- 使用git命令重命名文件
+
+```bash
+git mv index.html git.html
+```
+
+git status 可见
+
+```console
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    index.html -> git.html
+```
+
+### 最后提交
+
+```bash
+git commit -m"完成文件名变更"
+```
