@@ -397,32 +397,94 @@ C:\Workspace\Development\git\git-demo>git cat-file -p d9d84d307e4930baab08c3810a
 - 查看所有commit
 
 ```bash
-C:\Workspace\Development\git\git-demo>git log
-commit 21430cbf157e509ca49d1d649958f93326e7f47d (HEAD -> master)
-Author: eric <6350938@qq.com>
-Date:   Sat Apr 23 09:51:02 2022 +0800
-
-    commit、tree和blob三个对象之间的关系
-
-commit 20ded561f4e4ff34591254e1c6ce89cde747cc9f
-Author: eric <6350938@qq.com>
-Date:   Thu Apr 21 19:33:12 2022 +0800
-
-    探密.git目录
-
-commit 8ac3bb78a4bd4ba0715121dd1af6d027e9216b8a
-Author: eric <6350938@qq.com>
-Date:   Thu Apr 21 18:35:02 2022 +0800
+C:\Workspace\Development\git\git-demo>git log --oneline
+4952472 (HEAD -> master) 临时提交
+21430cb commit、tree和blob三个对象之间的关系
+20ded56 探密.git目录
+8ac3bb7 gitk：通过图形界面工具来查看版本历史
+27549bb 通过gitlog查看版本演变历史
+1d6aef8 文件命名
+907e4ba 完成文件名变更
+4feeba9 Add content in html & add styles & update readme.md
+605d5f8 Add title line in html & styles
+d6f57d2 Add index + logo
+4c90c64 add readme.md
 ```
 
 - 切换到其中某一个commit（20ded561f）
 
 ```bash
-git checkout 20ded561f
+C:\Workspace\Development\git\git-demo>git checkout 907e4ba
+Note: switching to '907e4ba'.
+
+You are in 'detached HEAD' state. You can look around, make experimental    
+changes and commit them, and you can discard any commits you make in this   
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may    
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 907e4ba 完成文件名变更
 ```
 
 - 修改文件并提交
 
+例如在git.html中增加一行，然后提交
+
 ```bash
 git commit -am"演示分离头指针"
 ```
+
+- 查看当前状态
+
+git log可见当前当前HEAD没有指向任何一个分支
+
+```bash
+C:\Workspace\Development\git\git-demo>git log
+commit 1a04d7a6a90e325cdf9f14f42a0d9e004e8f17c0 (HEAD)
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 11:42:22 2022 +0800
+
+    演示分离头指针
+... ...
+```
+
+- 切换到master主分支
+
+```bash
+C:\Workspace\Development\git\git-demo>git checkout master
+Warning: you are leaving 1 commit behind, not connected to
+any of your branches:
+
+  1a04d7a 演示分离头指针
+
+If you want to keep it by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 1a04d7a
+
+Switched to branch 'master'
+```
+
+其中可见git警告  
+Warning: you are leaving 1 commit behind, not connected to
+any of your branches:
+
+- 使用gitk命令查看
+gitk界面中看不到1a04d7a这个commit，这个commit因为与分支分离，后续可能会被git清理掉
+
+- 基于1a04d7a这个commit创建分支
+
+```bash
+git branch fix-html 1a04d7a
+```
+
+然后在gitk中，可见fix-html分支，并且这个分支指向1a04d7a这个commit
