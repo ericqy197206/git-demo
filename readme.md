@@ -387,3 +387,42 @@ C:\Workspace\Development\git\git-demo>git cat-file -p f5619ea24d29fef82082e8fdd6
 C:\Workspace\Development\git\git-demo>git cat-file -p d9d84d307e4930baab08c3810adc56f233fc8461
 100644 blob 57a5bdd36689171ba47540af83e88ade21a74e48    logo.png
 ```
+
+## 9 分离头指针
+
+分离头指针是的是commit从仓库的某一个commit进行分离开发，并且这个来源的commit并不属于任何一个分支的头部
+
+示例
+
+- 查看所有commit
+
+```bash
+C:\Workspace\Development\git\git-demo>git log
+commit 21430cbf157e509ca49d1d649958f93326e7f47d (HEAD -> master)
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 09:51:02 2022 +0800
+
+    commit、tree和blob三个对象之间的关系
+
+commit 20ded561f4e4ff34591254e1c6ce89cde747cc9f
+Author: eric <6350938@qq.com>
+Date:   Thu Apr 21 19:33:12 2022 +0800
+
+    探密.git目录
+
+commit 8ac3bb78a4bd4ba0715121dd1af6d027e9216b8a
+Author: eric <6350938@qq.com>
+Date:   Thu Apr 21 18:35:02 2022 +0800
+```
+
+- 切换到其中某一个commit（20ded561f）
+
+```bash
+git checkout 20ded561f
+```
+
+- 修改文件并提交
+
+```bash
+git commit -am"演示分离头指针"
+```
