@@ -479,6 +479,7 @@ Warning: you are leaving 1 commit behind, not connected to
 any of your branches:
 
 - 使用gitk命令查看
+
 gitk界面中看不到1a04d7a这个commit，这个commit因为与分支分离，后续可能会被git清理掉
 
 - 基于1a04d7a这个commit创建分支
