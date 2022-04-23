@@ -500,3 +500,96 @@ git checkout -b another-fix fix-html
 
 1. 基于fix-html，创建一个名为another-fix的分支(也可以基于某一个commit创建分支)
 2. -b参数表示创建并直接切换到此分支
+
+### git log 可以看到现在HEAD指向another-fix
+
+```bash
+$ git log -n1
+commit 1a04d7a6a90e325cdf9f14f42a0d9e004e8f17c0 (HEAD -> another-fix, fix-html)
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 11:42:22 2022 +0800
+
+    演示分离头指针
+```
+
+### 查看HEAD文件
+
+```bash
+$ cat .git/HEAD
+ref: refs/heads/another-fix
+
+$ cat .git/refs/heads/another-fix
+1a04d7a6a90e325cdf9f14f42a0d9e004e8f17c0
+
+$ git cat-file -t 1a04d7a6a90e325cdf9f14f42a0d9e004e8f17c0
+commit
+```
+
+可见HEAD指向heads中的another-fix, another-fix的内容指向一个commit
+
+### 版本比较
+
+- 先查看git log
+
+```bash
+$ git log --all
+commit f7e5b67819d0da7e1120d4a75e0f07eb9ee161d1 (master)
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 16:02:05 2022 +0800
+
+    临时提交
+
+commit 3c2e792ab19910ccc3f8da89b2118db267621e0f
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 14:49:40 2022 +0800
+
+    临时提交
+
+commit 81344e9fda2e412b7bbcab40889abc3dba6ea7e0
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 12:00:48 2022 +0800
+
+    调整了readme.md格式
+
+commit f394a98a0928968d43b411e14fed776cc61d4b5c
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 11:58:40 2022 +0800
+
+    分离头指针情况下的注意事项
+
+commit 1a04d7a6a90e325cdf9f14f42a0d9e004e8f17c0 (HEAD -> another-fix, fix-html)
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 11:42:22 2022 +0800
+
+    演示分离头指针
+```
+
+- 比较两个commit之间的差异
+
+```bash
+git diff 3c2e792ab19910ccc3f8da89b2118db267621e0f f7e5b67819d0da7e1120d4a75e0f07eb9ee161d1
+```
+
+- 当前版本与commit 3c2e792ab19910ccc3f8da89b2118db267621e0f 之间的差异
+
+```bash
+git diff HEAD 3c2e792ab19910ccc3f8da89b2118db267621e0f
+```
+
+- 比较当前版本与上一次版本
+
+```bash
+git diff HEAD HEAD^
+```
+
+- 比较当前版本与之前第2个版本
+
+```bash
+git diff HEAD HEAD^^
+```
+
+或者
+
+```bash
+git diff HEAD HEAD~2
+```
