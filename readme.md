@@ -489,3 +489,14 @@ git branch fix-html 1a04d7a
 ```
 
 然后在gitk中，可见fix-html分支，并且这个分支指向1a04d7a这个commit
+
+## 10 进一步理解HEAD和branch
+
+### 创建并切换到新分支
+
+```bash
+git checkout -b another-fix fix-html
+```
+
+1. 基于fix-html，创建一个名为another-fix的分支(也可以基于某一个commit创建分支)
+2. -b参数表示创建并直接切换到此分支
