@@ -301,3 +301,89 @@ committer xxx <> 1590659575 +0800
 
 add emphasis
 ```
+
+## 8 commit、tree和blob
+
+### commit
+
+某个时间点的仓库快照，commit指向了一个tree，用于存放这个时间点的仓库文件系统的目录及文件快照
+
+### tree
+
+一个树形文件结构，tree中可以包含tree（子目录）和blob（文件）
+
+### blob
+
+git使用blob存放仓库中的文件，只要文件内容相同，他就是同一个blob，这样可以大大节省存储空间
+
+### 示例
+
+- 查看commit
+
+```bash
+C:\Workspace\Development\git\git-demo>git log
+commit 20ded561f4e4ff34591254e1c6ce89cde747cc9f (HEAD -> master)
+Author: eric <6350938@qq.com>
+Date:   Thu Apr 21 19:33:12 2022 +0800
+
+    探密.git目录
+
+commit 8ac3bb78a4bd4ba0715121dd1af6d027e9216b8a
+Author: eric <6350938@qq.com>
+Date:   Thu Apr 21 18:35:02 2022 +0800
+
+    gitk：通过图形界面工具来查看版本历史
+```
+
+- 查看第一个commit内容
+
+```bash
+C:\Workspace\Development\git\git-demo>git cat-file -p 20ded561f4e4ff34591254e1c6ce89cde747cc9f
+tree f442bdf5415a2f3c897e3caffe74e719494ed679
+parent 8ac3bb78a4bd4ba0715121dd1af6d027e9216b8a
+author eric <6350938@qq.com> 1650540792 +0800
+committer eric <6350938@qq.com> 1650540792 +0800
+
+探密.git目录
+```
+
+- 查看commit指向的tree
+
+```bash
+C:\Workspace\Development\git\git-demo>git cat-file -p f442bdf5415a2f3c897e3caffe74e719494ed679
+100644 blob f5619ea24d29fef82082e8fdd6e5193fbd122c80    git.html
+040000 tree d9d84d307e4930baab08c3810adc56f233fc8461    images
+100644 blob 1a41c6b0e1b9e575c514fed54241f32447c6c39e    readme.md
+040000 tree c3f3edead0f67a10cad0e90241ef5f3df3d8aeed    styles
+```
+
+- 查看git.html文件内容
+
+```bash
+C:\Workspace\Development\git\git-demo>git cat-file -p f5619ea24d29fef82082e8fdd6e5193fbd122c80
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIT Demo</title>
+    <link rel="stylesheet" href="styles/style.css" type="text/css">
+</head>
+
+<body>
+    <p class="title-line">This is a GIT demo app.</p>
+    <img alt="logo" src="images/logo.png" />
+    <p class="content-line">This is content</p>
+</body>
+
+</html>
+```
+
+- 查看images目录
+
+```bash
+C:\Workspace\Development\git\git-demo>git cat-file -p d9d84d307e4930baab08c3810adc56f233fc8461
+100644 blob 57a5bdd36689171ba47540af83e88ade21a74e48    logo.png
+```
