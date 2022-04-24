@@ -694,3 +694,25 @@ git rebase -i 5f4c49e4
 
 1. git 弹出的编辑器中列出commit 5f4c49e4之后的各个子commit. 保留commit db72f76a不做变化(pick),将commit 8928e1c2合并到上一个commit db72f76a中(squash), 修改完成后关闭.
 2. git 再次弹出的编辑器, 用于修改合并后commit的message, 修改完成后关闭
+
+## 13 怎样把不连续的多个commit整理成1个
+
+### 场景
+
+仓库中存在以下三个commit, 按时间顺序从前往后如下:  
+1. commit XXXXXXX1 修改了文件A
+2. commit XXXXXXX2 修改了文件B
+3. commit XXXXXXX3 修改了文件A
+
+现希望合并commit XXXXXXX1和commit XXXXXXX3
+
+### 步骤
+
+1. 如上例执行 git rebase -i XXXXXXX1之前的那个commit
+2. 调整commit行顺序, 将commit XXXXXXX1和commit XXXXXXX3调整为连续的两行
+3. 在弹出的编辑器中, 将commit XXXXXXX3的command由skip改为squash, 保存并退出
+4. 然后在再次弹出的编辑器里修改合并后commit的message，并保存关系
+
+注意：
+1. 如果 XXXXXXX1是仓库的第一个commit，没有之前的commit，则在第1步执行git rebase -i XXXXXXX1，并在第2步把XXXXXXX1手工添加到第一行
+2. 如果第3步完成后弹出告警提示, 终止了第4步执行。 如果确认要继续, 可以执行 git rebase --continue
