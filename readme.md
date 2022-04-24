@@ -594,7 +594,7 @@ git diff HEAD HEAD^^
 git diff HEAD HEAD~2
 ```
 
-## 删除不需要的分支
+## 11 删除不需要的分支
 
 ### 先查看分支
 
@@ -660,3 +660,37 @@ git rebase -i 0ab2430e
 2. git 再次弹出的编辑器, 用于修改commit f7959301的message, 修改完成后关闭
 
 _注意:应该只在本地仓库的commit中使用rebase, 如果在远程公用仓库中使用rebase, 容易造成团队开发人员之间工作版本的混乱_
+
+## 12 怎样把连续的多个commit整理成1个
+
+### 先查看历史提交
+
+```bash
+$ git log -3
+commit 8928e1c240dc0811c36632fb3f7b4ddb4a4465e9 (HEAD -> master)
+Author: eric <6350938@qq.com>
+Date:   Sun Apr 24 09:33:35 2022 +0800
+
+    补充了备注信息
+
+commit db72f76a90eec5cf2924330465eb5a7e62d1581b
+Author: eric <6350938@qq.com>
+Date:   Sun Apr 24 09:28:13 2022 +0800
+
+    怎么修改老旧commit的message
+
+commit 5f4c49e4f12578824a2c51543186e8530db06fae
+Author: eric <6350938@qq.com>
+Date:   Sun Apr 24 09:04:16 2022 +0800
+
+    怎么修改最新commit的message
+```
+
+### 合并 commit db72f76a 和 commit 8928e1c2
+
+```bash
+git rebase -i 5f4c49e4
+```
+
+1. git 弹出的编辑器中列出commit 5f4c49e4之后的各个子commit. 保留commit db72f76a不做变化(pick),将commit 8928e1c2合并到上一个commit db72f76a中(squash), 修改完成后关闭.
+2. git 再次弹出的编辑器, 用于修改合并后commit的message, 修改完成后关闭
