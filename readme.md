@@ -593,3 +593,25 @@ git diff HEAD HEAD^^
 ```bash
 git diff HEAD HEAD~2
 ```
+
+## 删除不需要的分支
+
+### 先查看分支
+
+```bash
+$ git branch -av
+  another-fix 1a04d7a 演示分离头指针
+  fix-html    1a04d7a 演示分离头指针
+  help        0ab2430 进一步理解HEAD和branch
+* master      0ab2430 进一步理解HEAD和branch
+```
+
+### 分支删除命令
+
+以下命令删除help分支
+
+```bash
+git branch -d help
+```
+
+_如果分支存在异常无法删除（例如可能报错：The branch 'XXXXXXXX' is not fully merged）, 如果确认要删除, 可以用-D参数强制删除. -D: -d + -f_
