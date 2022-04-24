@@ -615,3 +615,10 @@ git branch -d help
 ```
 
 _如果分支存在异常无法删除（例如可能报错：The branch 'XXXXXXXX' is not fully merged）, 如果确认要删除, 可以用-D参数强制删除. -D: -d + -f_
+
+
+## 修改最新commit的message
+
+```bash
+git commit --amend
+```
