@@ -622,3 +622,41 @@ _如果分支存在异常无法删除（例如可能报错：The branch 'XXXXXXX
 ```bash
 git commit --amend
 ```
+
+## 修改历史commit的message
+
+### 先查看历史提交
+
+```bash
+$ git log -3
+commit 04297535a59d6671be70c0e17e5410f2e9a76e1b (HEAD -> master)
+Author: eric <6350938@qq.com>
+Date:   Sun Apr 24 09:04:16 2022 +0800
+
+    怎么修改最新commit的message
+
+commit f79593015cde6bf61609dc548e96fc54be8e78ea
+Author: eric <6350938@qq.com>
+Date:   Sun Apr 24 08:59:49 2022 +0800
+
+    怎么删除不需要的分支（经过amend修改）
+
+commit 0ab2430e6f009ab14bf44ebd92f2c6247dde974e
+Author: eric <6350938@qq.com>
+Date:   Sat Apr 23 20:40:20 2022 +0800
+
+    进一步理解HEAD和branch
+```
+
+### 修改提交
+
+计划修改commit f7959301的提交信息，因此需要针对commit f7959301的父commit 0ab2430e进行rebase
+
+```bash
+git rebase -i 0ab2430e
+```
+
+1. git 弹出的编辑器中列出commit 0ab2430e之后的各个子commit, 用于编辑对各个commit的操作命令. 在编辑器中将commit f7959301 的命令由pick(直接采用原来的commit, 不做改动)改为reword(修改commit message), 修改完成后关闭.
+2. git 再次弹出的编辑器, 用于修改commit f7959301的message, 修改完成后关闭
+
+_注意:应该只在本地仓库的commit中使用rebase, 如果在远程公用仓库中使用rebase, 容易造成团队开发人员之间工作版本的混乱_
