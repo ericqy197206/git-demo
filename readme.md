@@ -722,3 +722,14 @@ git rebase -i 5f4c49e4
 ```bash
 git diff --cached
 ```
+
+## 15 比较工作区与暂存区的差异
+
+```bash
+git diff
+```
+
+只比对一个文件(readme.md)
+```bash
+git diff -- readme.md
+```
