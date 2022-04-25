@@ -733,3 +733,15 @@ git diff
 ```bash
 git diff -- readme.md
 ```
+
+## 16 将暂存区恢复成和HEAD一样
+
+```bash
+git reset HEAD
+```
+
+只恢复其中一个文件
+
+```bash
+git reset HEAD readme.md
+```
