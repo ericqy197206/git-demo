@@ -716,3 +716,9 @@ git rebase -i 5f4c49e4
 注意：
 1. 如果 XXXXXXX1是仓库的第一个commit，没有之前的commit，则在第1步执行git rebase -i XXXXXXX1，并在第2步把XXXXXXX1手工添加到第一行
 2. 如果第3步完成后弹出告警提示, 终止了第4步执行。 如果确认要继续, 可以执行 git rebase --continue
+
+## 14 比较暂存区与HEAD的差异
+
+```bash
+git diff --cached
+```
