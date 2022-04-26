@@ -806,3 +806,11 @@ git reset --hard 6ba59ba6
 ```
 
 ___注意：此操作不可逆，慎用___
+
+## 19 查看不同commit之间，指定文件的差别
+
+```bash
+git diff f54ed705 d1e49316 -- readme.md
+```
+
+_也可以直接用分支名称进行比较，例如master, dev..._
