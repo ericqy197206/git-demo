@@ -814,3 +814,18 @@ git diff f54ed705 d1e49316 -- readme.md
 ```
 
 _也可以直接用分支名称进行比较，例如master, dev..._
+
+## 20 删除文件
+
+在工作区删除文件后，可以通过git add或git rm完成向暂存区的提交
+
+```bash
+rm -f test-delete.txt
+git add .
+```
+
+或者直接用git rm直接完成以上两个步骤
+
+```bash
+git rm test-delete.txt
+```
