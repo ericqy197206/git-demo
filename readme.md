@@ -857,3 +857,9 @@ git stash apply
 ```bash
 git stash pop
 ```
+
+## 22 指定不需要git管理的文件
+
+__使用.gitignore指定不需要git管理的文件__
+
+常见项目类型的.gitignore文件参见github: [A collection of .gitignore templates](https://github.com/github/gitignore)
