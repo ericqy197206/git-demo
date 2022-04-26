@@ -773,3 +773,36 @@ git restore .
 ```bash
 git restore readme.md
 ```
+
+## 18 消除最近的几次提交
+
+### 先查看提交历史记录
+
+```bash
+$ git log -3
+commit 25e5604eb36a46f13a28a3d02b80164dd3f7b945 (HEAD -> master)
+Author: eric <6350938@qq.com>
+Date:   Tue Apr 26 09:15:15 2022 +0800
+
+    又加上了新的演示内容
+
+commit f517262e4466bc163e33c30cf8af1129e60334ad
+Author: eric <6350938@qq.com>
+Date:   Tue Apr 26 09:14:41 2022 +0800
+
+    演示内容
+
+commit 6ba59ba64681c4df9ae461ef22cf09d8265baa74
+Author: eric <6350938@qq.com>
+Date:   Tue Apr 26 09:11:15 2022 +0800
+
+    对课程的内容进行了部分修正,用最新的git restore命令取代了之前的git reset和git checkout
+```
+
+### 删除commit 25e5604e和f517262e, 使HEAD指向6ba59ba6
+
+```bash
+git reset --hard 6ba59ba6
+```
+
+___注意：此操作不可逆，慎用___
