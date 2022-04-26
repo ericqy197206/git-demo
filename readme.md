@@ -745,3 +745,17 @@ git reset HEAD
 ```bash
 git reset HEAD readme.md
 ```
+
+## 17 将工作区恢复成和暂存一样
+
+- 恢复当前目录及子目录的变更
+
+```bash
+git restore .
+```
+
+- 只恢复其中一个文件
+
+```bash
+git restore readme.md
+```
