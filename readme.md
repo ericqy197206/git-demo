@@ -736,14 +736,28 @@ git diff -- readme.md
 
 ## 16 将暂存区恢复成和HEAD一样
 
+- 恢复整个暂存区
+
 ```bash
 git reset HEAD
 ```
 
-只恢复其中一个文件
+或者
 
 ```bash
-git reset HEAD readme.md
+git restore --staged
+```
+
+- 只恢复其中一个文件
+
+```bash
+git reset HEAD -- readme.md
+```
+
+或者
+
+```bash
+git restore --staged readme.md
 ```
 
 ## 17 将工作区恢复成和暂存一样
