@@ -829,3 +829,31 @@ git add .
 ```bash
 git rm test-delete.txt
 ```
+
+## 21 开发中临时加塞了紧急任务怎么办
+
+### 1. 将当前工作区和缓存区的变更放入临时存储区域
+
+```bash
+git stash
+```
+
+### 2.查看临时存储区域
+
+```bash
+git stash list
+```
+
+### 3. 历史任务完成提交后，从临时存储区域将之前的变更还原到工作区
+
+- 还原变更后不清空临时存储区域，可调用git RESET HEAD后反复调用
+
+```bash
+git stash apply
+```
+
+- 还原变更同时清空临时存储区
+
+```bash
+git stash pop
+```
