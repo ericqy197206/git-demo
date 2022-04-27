@@ -832,19 +832,19 @@ git rm test-delete.txt
 
 ## 21 开发中临时加塞了紧急任务怎么办
 
-### 1. 将当前工作区和缓存区的变更放入临时存储区域
+### 21.1 将当前工作区和缓存区的变更放入临时存储区域
 
 ```bash
 git stash
 ```
 
-### 2.查看临时存储区域
+### 21.2 查看临时存储区域
 
 ```bash
 git stash list
 ```
 
-### 3. 历史任务完成提交后，从临时存储区域将之前的变更还原到工作区
+### 21.3 历史任务完成提交后，从临时存储区域将之前的变更还原到工作区
 
 - 还原变更后不清空临时存储区域，可调用git RESET HEAD后反复调用
 
@@ -866,7 +866,7 @@ __使用.gitignore指定不需要git管理的文件__
 
 ## 23 git的备份
 
-### git常用的传输协议
+### 23.1 git常用的传输协议
 
 |常用协议|语法格式|说明|
 |:--|:--|:--|
@@ -879,7 +879,7 @@ _智能协议与哑协议的区别：_
 - 直观区别: 哑协议传输进度不可见，智能协议传输进度可见
 - 传输速度: 智能协议比哑协议传输速度快 ___(按git官方文档的说法，未必是这样)___
 
-### git仓库支持多点备份, 以下是git仓库备份示例
+### 23.2 git仓库支持多点备份, 以下是git仓库备份示例
 
 - 用哑协议克隆一个纯仓库
 
@@ -908,7 +908,7 @@ __关于使用file://前缀，git官网有如下解释:__
 
 2. 指定file://前缀的主要原因是，如果您想要存储库的一个干净副本，而不包含无关的引用或对象 — 通常是在从另一个VCS或类似的东西导入之后（有关维护任务，请参阅[Git Internal](https://git-scm.com/book/en/v2/ch00/ch10-git-internals)）。
 
-### 向远程仓库推送
+### 23.3 向远程仓库推送
 
 - 查看当前的远程仓库
 
@@ -969,3 +969,47 @@ Everything up-to-date
 185.199.109.153 assets-cdn.github.com
 185.199.110.153 assets-cdn.github.com
 185.199.111.153 assets-cdn.github.com
+
+## 25 配置公私钥
+
+### 25.1 检查是否已存在公私钥
+
+```bash
+ls -al ~/.ssh
+# Lists the files in your .ssh directory, if they exist
+```
+github默认的公钥文件有以下几种：
+
+1. id_rsa.pub
+2. id_ecdsa.pub
+3. id_ed25519.pub
+
+### 25.2 生成公私钥对
+
+```bash
+$ ssh-keygen -t ed25519 -C "6350938@qq.com"
+```
+
+如果系统不支持Ed25519签名算法, 可采用RSA
+
+```bash
+$ ssh-keygen -t rsa -b 4096 -C "6350938@qq.com"
+```
+
+然后一路回车，生成的公私钥文件如下:
+
+```bash
+ls -al ~/.ssh
+总用量 20
+drwx------  2 eric eric 4096 4月  27 11:29 .
+drwxr-xr-x 61 eric eric 4096 4月  27 10:23 ..
+-rw-------  1 eric eric  411 4月  27 11:29 id_ed25519       # 私钥
+-rw-r--r--  1 eric eric   96 4月  27 11:29 id_ed25519.pub   # 公钥
+-rw-r--r--  1 eric eric  888 4月  26 15:33 known_hosts
+```
+
+### 25.3 将SSH公钥添加到github的profile中
+
+1. 登录github，点击右上角settings
+2. SSH and GPG keys -> New SSH key
+3. 把id_ed25519.pub文件的内容粘贴到key输入框, title可填可不填, 然后点击Add SSH key
