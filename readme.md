@@ -863,3 +863,69 @@ git stash pop
 __使用.gitignore指定不需要git管理的文件__
 
 常见项目类型的.gitignore文件参见github: [A collection of .gitignore templates](https://github.com/github/gitignore)
+
+## 23 git的备份
+
+### git常用的传输协议
+
+|常用协议|语法格式|说明|
+|:--|:--|:--|
+|本地协议(1)|/path/to/repo.git|哑协议|
+|本地协议(2)|file:///path/to/repo.git|智能协议|
+|http/https协议|http://git-server.com:port/path/to/repo.git<br>https://git-server.com:port/path/to/repo.git|平时接触到的都是智能协议|
+|ssh协议|user@git-server.com:path/to/repo.git|工作中最常用的智能协议|
+
+_智能协议与哑协议的区别：_
+- 直观区别: 哑协议传输进度不可见，智能协议传输进度可见
+- 传输速度: 智能协议比哑协议传输速度快 ___(按git官方文档的说法，未必是这样)___
+
+### git仓库支持多点备份, 以下是git仓库备份示例
+
+- 用哑协议克隆一个纯仓库
+
+```bash
+$ git clone --bare ./.git /home/eric/Workspace/Development/git/git-demo-repo
+克隆到纯仓库 '/home/eric/Workspace/Development/git/git-demo-repo'...
+完成。
+```
+
+- 用智能协议克隆一个纯仓库
+
+```bash
+$ git clone --bare file:///home/eric/Workspace/Development/git/git-demo/.git /home/eric/Workspace/Development/git/git-demo-repo
+克隆到纯仓库 '/home/eric/Workspace/Development/git/git-demo-repo'...
+remote: 枚举对象中: 109, 完成.
+remote: 对象计数中: 100% (109/109), 完成.
+remote: 压缩对象中: 100% (103/103), 完成.
+接收对象中: 100% (109/109), 35.79 KiB | 2.56 MiB/s, 完成.
+remote: 总共 109 （差异 57），复用 0 （差异 0）
+处理 delta 中: 100% (57/57), 完成.
+```
+
+__关于使用file://前缀，git官网有如下解释:__
+
+1. 指定file://，Git会启动它通常用于通过网络传输数据的进程，这通常效率要低得多。
+
+2. 指定file://前缀的主要原因是，如果您想要存储库的一个干净副本，而不包含无关的引用或对象 — 通常是在从另一个VCS或类似的东西导入之后（有关维护任务，请参阅[Git Internal](https://git-scm.com/book/en/v2/ch00/ch10-git-internals)）。
+
+### 向远程仓库推送
+
+- 查看当前的远程仓库
+
+```bash
+git remote -v
+```
+
+- 添加远程仓路
+
+```bash
+git remote add git-demo-repo file:///home/eric/Workspace/Development/git/git-demo-repo
+```
+
+- 当前工作区分支是master, 与远端git-demo-repo仓库的master分支建立跟踪，并推送
+
+```bash
+$ git push --set-upstream git-demo-repo master
+分支 'master' 设置为跟踪来自 'git-demo-repo' 的远程分支 'master'。
+Everything up-to-date
+```
