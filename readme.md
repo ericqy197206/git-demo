@@ -929,3 +929,43 @@ $ git push --set-upstream git-demo-repo master
 分支 'master' 设置为跟踪来自 'git-demo-repo' 的远程分支 'master'。
 Everything up-to-date
 ```
+
+## 24 注册一个github帐号
+
+内容略
+
+### github访问优化
+
+- 确定github的ip
+
+进入网址https://github.com.ipaddress.com, 查看GitHub的ip地址。
+
+140.82.113.3 github.com
+
+- 确定域名ip
+
+进入网址https://fastly.net.ipaddress.com/github.global.ssl.fastly.net
+
+199.232.69.194 github.global.ssl.fastly.net
+
+- 确定静态资源ip
+
+进入网址https://github.com.ipaddress.com/assets-cdn.github.com
+
+185.199.108.153	assets-cdn.github.com
+185.199.109.153 assets-cdn.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.111.153 assets-cdn.github.com
+2606:50c0:8000::153 assets-cdn.github.com
+2606:50c0:8001::153 assets-cdn.github.com
+2606:50c0:8002::153 assets-cdn.github.com
+2606:50c0:8003::153 assets-cdn.github.com
+
+- 修改hosts
+
+140.82.114.3	github.com
+199.232.69.194	github.global.ssl.fastly.net
+185.199.108.153	assets-cdn.github.com
+185.199.109.153 assets-cdn.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.111.153 assets-cdn.github.com
