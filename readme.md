@@ -617,15 +617,15 @@ git branch -d help
 _如果分支存在异常无法删除（例如可能报错：The branch 'XXXXXXXX' is not fully merged）, 如果确认要删除, 可以用-D参数强制删除. -D: -d + -f_
 
 
-## 修改最新commit的message
+## 12 修改最新commit的message
 
 ```bash
 git commit --amend
 ```
 
-## 修改历史commit的message
+## 13 修改历史commit的message
 
-### 先查看历史提交
+### 13.1 先查看历史提交
 
 ```bash
 $ git log -3
@@ -648,7 +648,7 @@ Date:   Sat Apr 23 20:40:20 2022 +0800
     进一步理解HEAD和branch
 ```
 
-### 修改提交
+### 13.2 修改提交
 
 计划修改commit f7959301的提交信息，因此需要针对commit f7959301的父commit 0ab2430e进行rebase
 
@@ -661,9 +661,9 @@ git rebase -i 0ab2430e
 
 _注意:应该只在本地仓库的commit中使用rebase, 如果在远程公用仓库中使用rebase, 容易造成团队开发人员之间工作版本的混乱_
 
-## 12 怎样把连续的多个commit整理成1个
+## 14 怎样把连续的多个commit整理成1个
 
-### 先查看历史提交
+### 14.1 先查看历史提交
 
 ```bash
 $ git log -3
@@ -686,7 +686,7 @@ Date:   Sun Apr 24 09:04:16 2022 +0800
     怎么修改最新commit的message
 ```
 
-### 合并 commit db72f76a 和 commit 8928e1c2
+### 14.2 合并 commit db72f76a 和 commit 8928e1c2
 
 ```bash
 git rebase -i 5f4c49e4
@@ -695,9 +695,9 @@ git rebase -i 5f4c49e4
 1. git 弹出的编辑器中列出commit 5f4c49e4之后的各个子commit. 保留commit db72f76a不做变化(pick),将commit 8928e1c2合并到上一个commit db72f76a中(squash), 修改完成后关闭.
 2. git 再次弹出的编辑器, 用于修改合并后commit的message, 修改完成后关闭
 
-## 13 怎样把不连续的多个commit整理成1个
+## 15 怎样把不连续的多个commit整理成1个
 
-### 场景
+### 15.1 场景
 
 仓库中存在以下三个commit, 按时间顺序从前往后如下:  
 1. commit XXXXXXX1 修改了文件A
@@ -706,7 +706,7 @@ git rebase -i 5f4c49e4
 
 现希望合并commit XXXXXXX1和commit XXXXXXX3
 
-### 步骤
+### 15.2 步骤
 
 1. 如上例执行 git rebase -i XXXXXXX1之前的那个commit
 2. 调整commit行顺序, 将commit XXXXXXX1和commit XXXXXXX3调整为连续的两行
@@ -717,13 +717,13 @@ git rebase -i 5f4c49e4
 1. 如果 XXXXXXX1是仓库的第一个commit，没有之前的commit，则在第1步执行git rebase -i XXXXXXX1，并在第2步把XXXXXXX1手工添加到第一行
 2. 如果第3步完成后弹出告警提示, 终止了第4步执行。 如果确认要继续, 可以执行 git rebase --continue
 
-## 14 比较暂存区与HEAD的差异
+## 16 比较暂存区与HEAD的差异
 
 ```bash
 git diff --cached
 ```
 
-## 15 比较工作区与暂存区的差异
+## 17 比较工作区与暂存区的差异
 
 ```bash
 git diff
@@ -734,7 +734,7 @@ git diff
 git diff -- readme.md
 ```
 
-## 16 将暂存区恢复成和HEAD一样
+## 18 将暂存区恢复成和HEAD一样
 
 - 恢复整个暂存区
 
@@ -760,7 +760,7 @@ git reset HEAD -- readme.md
 git restore --staged readme.md
 ```
 
-## 17 将工作区恢复成和暂存一样
+## 19 将工作区恢复成和暂存一样
 
 - 恢复当前目录及子目录的变更
 
@@ -774,9 +774,9 @@ git restore .
 git restore readme.md
 ```
 
-## 18 消除最近的几次提交
+## 20 消除最近的几次提交
 
-### 先查看提交历史记录
+### 20.1 先查看提交历史记录
 
 ```bash
 $ git log -3
@@ -799,7 +799,7 @@ Date:   Tue Apr 26 09:11:15 2022 +0800
     对课程的内容进行了部分修正,用最新的git restore命令取代了之前的git reset和git checkout
 ```
 
-### 删除commit 25e5604e和f517262e, 使HEAD指向6ba59ba6
+### 20.2 删除commit 25e5604e和f517262e, 使HEAD指向6ba59ba6
 
 ```bash
 git reset --hard 6ba59ba6
@@ -807,7 +807,7 @@ git reset --hard 6ba59ba6
 
 ___注意：此操作不可逆，慎用___
 
-## 19 查看不同commit之间，指定文件的差别
+## 21 查看不同commit之间，指定文件的差别
 
 ```bash
 git diff f54ed705 d1e49316 -- readme.md
@@ -815,7 +815,7 @@ git diff f54ed705 d1e49316 -- readme.md
 
 _也可以直接用分支名称进行比较，例如master, dev..._
 
-## 20 删除文件
+## 22 删除文件
 
 在工作区删除文件后，可以通过git add或git rm完成向暂存区的提交
 
@@ -830,21 +830,21 @@ git add .
 git rm test-delete.txt
 ```
 
-## 21 开发中临时加塞了紧急任务怎么办
+## 23 开发中临时加塞了紧急任务怎么办
 
-### 21.1 将当前工作区和缓存区的变更放入临时存储区域
+### 23.1 将当前工作区和缓存区的变更放入临时存储区域
 
 ```bash
 git stash
 ```
 
-### 21.2 查看临时存储区域
+### 23.2 查看临时存储区域
 
 ```bash
 git stash list
 ```
 
-### 21.3 历史任务完成提交后，从临时存储区域将之前的变更还原到工作区
+### 23.3 历史任务完成提交后，从临时存储区域将之前的变更还原到工作区
 
 - 还原变更后不清空临时存储区域，可调用git RESET HEAD后反复调用
 
@@ -858,15 +858,15 @@ git stash apply
 git stash pop
 ```
 
-## 22 指定不需要git管理的文件
+## 24 指定不需要git管理的文件
 
 __使用.gitignore指定不需要git管理的文件__
 
 常见项目类型的.gitignore文件参见github: [A collection of .gitignore templates](https://github.com/github/gitignore)
 
-## 23 git的备份
+## 25 git的备份
 
-### 23.1 git常用的传输协议
+### 25.1 git常用的传输协议
 
 |常用协议|语法格式|说明|
 |:--|:--|:--|
@@ -879,7 +879,7 @@ _智能协议与哑协议的区别：_
 - 直观区别: 哑协议传输进度不可见，智能协议传输进度可见
 - 传输速度: 智能协议比哑协议传输速度快 ___(按git官方文档的说法，未必是这样)___
 
-### 23.2 git仓库支持多点备份, 以下是git仓库备份示例
+### 25.2 git仓库支持多点备份, 以下是git仓库备份示例
 
 - 用哑协议克隆一个纯仓库
 
@@ -908,7 +908,7 @@ __关于使用file://前缀，git官网有如下解释:__
 
 2. 指定file://前缀的主要原因是，如果您想要存储库的一个干净副本，而不包含无关的引用或对象 — 通常是在从另一个VCS或类似的东西导入之后（有关维护任务，请参阅[Git Internal](https://git-scm.com/book/en/v2/ch00/ch10-git-internals)）。
 
-### 23.3 向远程仓库推送
+### 25.3 向远程仓库推送
 
 - 查看当前的远程仓库
 
@@ -930,11 +930,11 @@ $ git push --set-upstream git-demo-repo master
 Everything up-to-date
 ```
 
-## 24 注册一个github帐号
+## 26 注册一个github帐号
 
 内容略
 
-### github访问优化
+### 26.1 github访问优化
 
 - 确定github的ip
 
@@ -970,9 +970,9 @@ Everything up-to-date
 185.199.110.153 assets-cdn.github.com
 185.199.111.153 assets-cdn.github.com
 
-## 25 配置公私钥
+## 27 配置公私钥
 
-### 25.1 检查是否已存在公私钥
+### 27.1 检查是否已存在公私钥
 
 ```bash
 ls -al ~/.ssh
@@ -984,7 +984,7 @@ github默认的公钥文件有以下几种：
 2. id_ecdsa.pub
 3. id_ed25519.pub
 
-### 25.2 生成公私钥对
+### 27.2 生成公私钥对
 
 ```bash
 $ ssh-keygen -t ed25519 -C "6350938@qq.com"
@@ -1008,12 +1008,73 @@ drwxr-xr-x 61 eric eric 4096 4月  27 10:23 ..
 -rw-r--r--  1 eric eric  888 4月  26 15:33 known_hosts
 ```
 
-### 25.3 将SSH公钥添加到github的profile中
+### 27.3 将SSH公钥添加到github的profile中
 
 1. 登录github，点击右上角settings
 2. SSH and GPG keys -> New SSH key
 3. 把id_ed25519.pub文件的内容粘贴到key输入框, title可填可不填, 然后点击Add SSH key
 
-## 26 在github上创建个人仓库
+## 28 在github上创建个人仓库(由于github太慢, 后面所有的示例均使用gitee)
 
-过程略，在github上创建[git-demo](https://github.com/ericqy197206/git-demo.git), 选择MIT授权协议，不生成.gitignore和readme
+过程略，在gitee上创建[git-demo](git@gitee.com:ericqy/git-demo.git), 选择MIT授权协议，不生成.gitignore和readme
+
+
+## 29 把本地仓库同步到Gitee
+
+### 29.1 添加gitee到remote
+
+```bash
+git remote add gitee git@gitee.com:ericqy/git-demo.git
+```
+
+### 29.2 向远端推送所有分支
+
+```bash
+$ git push gitee --all
+The authenticity of host 'gitee.com (180.97.125.228)' can't be established.
+ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'gitee.com,180.97.125.228' (ECDSA) to the list of known hosts.
+枚举对象中: 121, 完成.
+对象计数中: 100% (121/121), 完成.
+使用 4 个线程进行压缩
+压缩对象中: 100% (115/115), 完成.
+写入对象中: 100% (121/121), 46.90 KiB | 1.56 MiB/s, 完成.
+总共 121 （差异 64），复用 0 （差异 0）
+remote: Resolving deltas: 100% (64/64), done.
+remote: Powered by GITEE.COM [GNK-6.3]
+To gitee.com:ericqy/git-demo.git
+ * [new branch]      another-fix -> another-fix
+ * [new branch]      fix-html -> fix-html
+ ! [rejected]        master -> master (fetch first)
+error: 推送一些引用到 'git@gitee.com:ericqy/git-demo.git' 失败
+提示：更新被拒绝，因为远程仓库包含您本地尚不存在的提交。这通常是因为另外
+提示：一个仓库已向该引用进行了推送。再次推送前，您可能需要先整合远程变更
+提示：（如 'git pull ...'）。
+提示：详见 'git push --help' 中的 'Note about fast-forwards' 小节。
+```
+
+__注意: 远端master分支与本地master分支尚未建立关联关系, 因此master分支push报错__
+
+### 29.3 拉取github上的master分支
+
+```bash
+git fetch gitee master
+```
+
+_注意:_
+1. fetch仅从远程仓库拉取
+2. pull在从远程仓库拉取后，与本地仓库做merge(即: git pull直接合并了27.3和27.4两步)
+
+### 29.4 将远端master分支与本地master分支进行merge
+
+```bash
+git checkout master                                 # 本地切换到master分支
+git merge gitee/master --allow-unrelated-histories # 与远端master分支进行merge
+```
+
+### 29.5 向远端推送master分支
+
+```bash
+git push gitee master
+```
