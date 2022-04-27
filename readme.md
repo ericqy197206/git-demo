@@ -1013,3 +1013,7 @@ drwxr-xr-x 61 eric eric 4096 4月  27 10:23 ..
 1. 登录github，点击右上角settings
 2. SSH and GPG keys -> New SSH key
 3. 把id_ed25519.pub文件的内容粘贴到key输入框, title可填可不填, 然后点击Add SSH key
+
+## 26 在github上创建个人仓库
+
+过程略，在github上创建[git-demo](https://github.com/ericqy197206/git-demo.git), 选择MIT授权协议，不生成.gitignore和readme
