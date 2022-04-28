@@ -1090,3 +1090,123 @@ git merge gitee/master --allow-unrelated-histories # 与远端master分支进行
 ```bash
 git push gitee master
 ```
+
+## 30 不同人修改了不同的文件
+
+### 30.1 在gitee上创建一个新分支feature/add_git_commands, 用于演示不同人修改了不同的文件
+
+内容略
+
+### 30.2 将项目克隆到一个新目录
+
+```bash
+cd ..
+git clone git@gitee.com:ericqy/git-demo.git git-demo-2
+cd git-demo-2
+```
+
+### 30.3 配置新的工作区的帐号和邮箱
+
+```bash
+git config --add --local user.name 'qianyong'
+git config --add --local user.email 'qianyong@dscomm.com.cn'
+```
+
+### 30.4 创建feature/add_git_commands对应的本地分支, 并切换到此分支
+
+```bash
+git checkout -b feature/add_git_commands origin/feature/add_git_commands
+```
+
+### 30.5 新添加一个文件 & add & commmit & push remote
+
+```bash
+echo 'hello another user.' > new-user.txt
+git add .
+git commit -m'用另一个用户身份添加文件并提交'
+git push
+```
+
+### 30.6 切换回原来的目录, 并重新获取远端的更新
+
+```bash
+cd ../git-demo
+git fetch gitee
+```
+
+### 30.7 切换到新增的feature/add_git_commands分支
+
+```bash
+git checkout -b feature/add_git_commands gitee/feature/add_git_commands
+```
+
+可见新增加的new-user.txt文件
+
+```bash
+$ cat new-user.txt
+hello another user.
+```
+
+### 用原来的用户添加并提交文件
+
+```bash
+$ echo 'hello old user'> old-user.txt
+$ git add .
+$ git commit -m'用原用户添加文件并提交'
+[feature/add_git_commands 08b1694] 用原用户添加文件并提交
+ 1 file changed, 1 insertion(+)
+ create mode 100644 old-user.txt
+$ git push gitee feature/add_git_commands
+枚举对象中: 4, 完成.
+对象计数中: 100% (4/4), 完成.
+使用 4 个线程进行压缩
+压缩对象中: 100% (2/2), 完成.
+写入对象中: 100% (3/3), 312 字节 | 156.00 KiB/s, 完成.
+总共 3 （差异 1），复用 0 （差异 0）
+remote: Powered by GITEE.COM [GNK-6.3]
+To gitee.com:ericqy/git-demo.git
+   abcc0c6..08b1694  feature/add_git_commands -> feature/add_git_commands
+```
+
+### 再次切换到新建目录那个工作区
+
+```bash
+$ cd ../git-demo-2/
+$ git branch -av
+* feature/add_git_commands                abcc0c6 用另一个用户身份添加文件并提交
+  master                                  50893a9 Merge branch 'master' of gitee.com:ericqy/git-demo
+  remotes/origin/HEAD                     -> origin/master
+  remotes/origin/another-fix              1a04d7a 演示分离头指针
+  remotes/origin/feature/add_git_commands abcc0c6 用另一个用户身份添加文件并提交
+  remotes/origin/fix-html                 1a04d7a 演示分离头指针
+  remotes/origin/master                   50893a9 Merge branch 'master' of gitee.com:ericqy/git-demo
+```
+
+_在gitee上可以看到用原用户添加并提交old-user.txt产生的commit 08b1694与本地remotes/origin/feature/add_git_commands分支的 abcc0c6不一致，原因是本地尚未从服务器上拉取最新的提交._
+
+### 尝试直接修改new-user.txt，提交并尝试推送远端
+
+```bash
+$ echo 'something append to text.' >> new-user.txt
+$ git commit -am'再次修改new-user.txt'
+[feature/add_git_commands c229cf9] 再次修改new-user.txt
+ 1 file changed, 1 insertion(+)
+$ git push
+To gitee.com:ericqy/git-demo.git
+ ! [rejected]        feature/add_git_commands -> feature/add_git_commands (fetch first)
+error: 推送一些引用到 'git@gitee.com:ericqy/git-demo.git' 失败
+提示：更新被拒绝，因为远程仓库包含您本地尚不存在的提交。这通常是因为另外
+提示：一个仓库已向该引用进行了推送。再次推送前，您可能需要先整合远程变更
+提示：（如 'git pull ...'）。
+提示：详见 'git push --help' 中的 'Note about fast-forwards' 小节。
+```
+
+_由于远端已经有新的提交，本地分支最新commit与远端不一致，因此push出错
+
+### fetch后merge, 然后再提交
+
+```bash
+git fetch
+git merge origin/feature/add_git_commands
+git push
+```
