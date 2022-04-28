@@ -614,8 +614,7 @@ $ git branch -av
 git branch -d help
 ```
 
-_如果分支存在异常无法删除（例如可能报错：The branch 'XXXXXXXX' is not fully merged）, 如果确认要删除, 可以用-D参数强制删除. -D: -d + -f_
-
+_如果分支存在异常无法删除（例如可能报错：The branch 'XXXXXXXX' is not fully merged）, 如果确认要删除, 可以用-D参数强制删除. -D: -d + -f._
 
 ## 12 修改最新commit的message
 
@@ -659,7 +658,7 @@ git rebase -i 0ab2430e
 1. git 弹出的编辑器中列出commit 0ab2430e之后的各个子commit, 用于编辑对各个commit的操作命令. 在编辑器中将commit f7959301 的命令由pick(直接采用原来的commit, 不做改动)改为reword(修改commit message), 修改完成后关闭.
 2. git 再次弹出的编辑器, 用于修改commit f7959301的message, 修改完成后关闭
 
-_注意:应该只在本地仓库的commit中使用rebase, 如果在远程公用仓库中使用rebase, 容易造成团队开发人员之间工作版本的混乱_
+_注意:应该只在本地仓库的commit中使用rebase, 如果在远程公用仓库中使用rebase, 容易造成团队开发人员之间工作版本的混乱._
 
 ## 14 怎样把连续的多个commit整理成一个
 
@@ -699,7 +698,8 @@ git rebase -i 5f4c49e4
 
 ### 15.1 场景
 
-仓库中存在以下三个commit, 按时间顺序从前往后如下:  
+仓库中存在以下三个commit, 按时间顺序从前往后如下:
+
 1. commit XXXXXXX1 修改了文件A
 2. commit XXXXXXX2 修改了文件B
 3. commit XXXXXXX3 修改了文件A
@@ -713,7 +713,8 @@ git rebase -i 5f4c49e4
 3. 在弹出的编辑器中, 将commit XXXXXXX3的command由skip改为squash, 保存并退出
 4. 然后在再次弹出的编辑器里修改合并后commit的message，并保存关系
 
-注意：
+注意:
+
 1. 如果 XXXXXXX1是仓库的第一个commit，没有之前的commit，则在第1步执行git rebase -i XXXXXXX1，并在第2步把XXXXXXX1手工添加到第一行
 2. 如果第3步完成后弹出告警提示, 终止了第4步执行。 如果确认要继续, 可以执行 git rebase --continue
 
@@ -730,6 +731,7 @@ git diff
 ```
 
 只比对一个文件(readme.md)
+
 ```bash
 git diff -- readme.md
 ```
@@ -860,7 +862,7 @@ git stash pop
 
 ## 24 指定不需要git管理的文件
 
-__使用.gitignore指定不需要git管理的文件__
+__使用.gitignore指定不需要git管理的文件.__
 
 常见项目类型的.gitignore文件参见github: [A collection of .gitignore templates](https://github.com/github/gitignore)
 
@@ -872,10 +874,11 @@ __使用.gitignore指定不需要git管理的文件__
 |:--|:--|:--|
 |本地协议(1)|/path/to/repo.git|哑协议|
 |本地协议(2)|file:///path/to/repo.git|智能协议|
-|http/https协议|http://git-server.com:port/path/to/repo.git<br>https://git-server.com:port/path/to/repo.git|平时接触到的都是智能协议|
+|http/https协议|<http://git-server.com:port/path/to/repo.git> <br> <https://git-server.com:port/path/to/repo.git>|平时接触到的都是智能协议|
 |ssh协议|user@git-server.com:path/to/repo.git|工作中最常用的智能协议|
 
 _智能协议与哑协议的区别：_
+
 - 直观区别: 哑协议传输进度不可见，智能协议传输进度可见
 - 传输速度: 智能协议比哑协议传输速度快 ___(按git官方文档的说法，未必是这样)___
 
@@ -938,21 +941,26 @@ Everything up-to-date
 
 - 确定github的ip
 
-进入网址https://github.com.ipaddress.com, 查看GitHub的ip地址。
+进入网址[IPAddress](https://github.com.ipaddress.com), 查看GitHub的ip地址。
 
+```text
 140.82.113.3 github.com
+```
 
 - 确定域名ip
 
-进入网址https://fastly.net.ipaddress.com/github.global.ssl.fastly.net
+进入网址[IPAddress](https://fastly.net.ipaddress.com/github.global.ssl.fastly.net)
 
+```text
 199.232.69.194 github.global.ssl.fastly.net
+```
 
 - 确定静态资源ip
 
-进入网址https://github.com.ipaddress.com/assets-cdn.github.com
+进入网址[IPAddress](https://github.com.ipaddress.com/assets-cdn.github.com)
 
-185.199.108.153	assets-cdn.github.com
+```text
+185.199.108.153 assets-cdn.github.com
 185.199.109.153 assets-cdn.github.com
 185.199.110.153 assets-cdn.github.com
 185.199.111.153 assets-cdn.github.com
@@ -960,15 +968,18 @@ Everything up-to-date
 2606:50c0:8001::153 assets-cdn.github.com
 2606:50c0:8002::153 assets-cdn.github.com
 2606:50c0:8003::153 assets-cdn.github.com
+```
 
 - 修改hosts
 
-140.82.114.3	github.com
-199.232.69.194	github.global.ssl.fastly.net
-185.199.108.153	assets-cdn.github.com
+```text
+140.82.114.3    github.com
+199.232.69.194  github.global.ssl.fastly.net
+185.199.108.153 assets-cdn.github.com
 185.199.109.153 assets-cdn.github.com
 185.199.110.153 assets-cdn.github.com
 185.199.111.153 assets-cdn.github.com
+```
 
 ## 27 配置公私钥
 
@@ -978,6 +989,7 @@ Everything up-to-date
 ls -al ~/.ssh
 # Lists the files in your .ssh directory, if they exist
 ```
+
 github默认的公钥文件有以下几种：
 
 1. id_rsa.pub
@@ -987,19 +999,19 @@ github默认的公钥文件有以下几种：
 ### 27.2 生成公私钥对
 
 ```bash
-$ ssh-keygen -t ed25519 -C "6350938@qq.com"
+ssh-keygen -t ed25519 -C "6350938@qq.com"
 ```
 
 如果系统不支持Ed25519签名算法, 可采用RSA
 
 ```bash
-$ ssh-keygen -t rsa -b 4096 -C "6350938@qq.com"
+ssh-keygen -t rsa -b 4096 -C "6350938@qq.com"
 ```
 
 然后一路回车，生成的公私钥文件如下:
 
 ```bash
-ls -al ~/.ssh
+$ ls -al ~/.ssh
 总用量 20
 drwx------  2 eric eric 4096 4月  27 11:29 .
 drwxr-xr-x 61 eric eric 4096 4月  27 10:23 ..
@@ -1017,7 +1029,6 @@ drwxr-xr-x 61 eric eric 4096 4月  27 10:23 ..
 ## 28 在github上创建个人仓库(由于github太慢, 后面所有的示例均使用gitee)
 
 过程略，在gitee上创建[git-demo](git@gitee.com:ericqy/git-demo.git), 选择MIT授权协议，不生成.gitignore和readme
-
 
 ## 29 把本地仓库同步到Gitee
 
@@ -1054,7 +1065,7 @@ error: 推送一些引用到 'git@gitee.com:ericqy/git-demo.git' 失败
 提示：详见 'git push --help' 中的 'Note about fast-forwards' 小节。
 ```
 
-__注意: 远端master分支与本地master分支尚未建立关联关系, 因此master分支push报错__
+__注意: 远端master分支与本地master分支尚未建立关联关系, 因此master分支push报错.__
 
 ### 29.3 拉取github上的master分支
 
@@ -1063,6 +1074,7 @@ git fetch gitee master
 ```
 
 _注意:_
+
 1. fetch仅从远程仓库拉取
 2. pull在从远程仓库拉取后，与本地仓库做merge(即: git pull直接合并了27.3和27.4两步)
 
