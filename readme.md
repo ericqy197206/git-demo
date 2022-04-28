@@ -1287,7 +1287,7 @@ error: 推送一些引用到 'git@gitee.com:ericqy/git-demo.git' 失败
 
 _因为git.html在另外一个工作区已修改并提交, 远程仓库上对应分支的当前commit与本地不一致, 因此无法push._
 
-### merge后重新push, 成功完成合并
+### 31.4 merge后重新push, 成功完成合并
 
 ```bash
 $ git fetch --all
@@ -1317,3 +1317,24 @@ remote: Powered by GITEE.COM [GNK-6.3]
 To gitee.com:ericqy/git-demo.git
    48d0926..204d415  feature/add_git_commands -> feature/add_git_commands
 ```
+
+## 32 不同人修改了同文件的同一区域
+
+过程类似前一章(这里修改了new-user.txt这个文件)，但这种情况下git merge会产生一个报错, 详细过程略
+
+```bash
+$ git merge gitee/feature/add_git_commands
+自动合并 new-user.txt
+冲突（内容）：合并冲突于 new-user.txt
+自动合并失败，修正冲突然后提交修正的结果。
+$ cat new-user.txt 
+<<<<<<< HEAD
+hello another user.
+2 something append to text.
+=======
+2 hello another user.
+something append to text.
+>>>>>>> gitee/feature/add_git_commands
+```
+
+_需要merge后手工修改new-user.txt的内容，确保没有错误后再提交仓库._
