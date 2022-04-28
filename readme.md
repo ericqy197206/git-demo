@@ -1147,7 +1147,7 @@ $ cat new-user.txt
 hello another user.
 ```
 
-### 用原来的用户添加并提交文件
+### 30.8 用原来的用户添加并提交文件
 
 ```bash
 $ echo 'hello old user'> old-user.txt
@@ -1168,7 +1168,7 @@ To gitee.com:ericqy/git-demo.git
    abcc0c6..08b1694  feature/add_git_commands -> feature/add_git_commands
 ```
 
-### 再次切换到新建目录那个工作区
+### 30.9 再次切换到新建目录那个工作区
 
 ```bash
 $ cd ../git-demo-2/
@@ -1184,7 +1184,7 @@ $ git branch -av
 
 _在gitee上可以看到用原用户添加并提交old-user.txt产生的commit 08b1694与本地remotes/origin/feature/add_git_commands分支的 abcc0c6不一致，原因是本地尚未从服务器上拉取最新的提交._
 
-### 尝试直接修改new-user.txt，提交并尝试推送远端
+### 30.10 尝试直接修改new-user.txt，提交并尝试推送远端
 
 ```bash
 $ echo 'something append to text.' >> new-user.txt
@@ -1203,10 +1203,117 @@ error: 推送一些引用到 'git@gitee.com:ericqy/git-demo.git' 失败
 
 _由于远端已经有新的提交，本地分支最新commit与远端不一致，因此push出错
 
-### fetch后merge, 然后再提交
+### 30.11 fetch后merge, 然后再提交
 
 ```bash
 git fetch
 git merge origin/feature/add_git_commands
 git push
+```
+
+## 31 不同人修改了同文件的不同区域
+
+演示在git-demo和git-demo-2这两个工作区, 修改了同文件git.html的不同区域，并提交
+
+### 31.1 修改git.html，增加header和foot两个段落, 并将两个工作区的feature/add_git_commands分支同步到最新版本
+
+```bash
+cd ../git-demo
+git checkout feature/add_git_commands
+git pull
+vi git.html
+```
+
+git.html内容如下
+
+```html
+<body>
+    <p>This is header</p>
+    <p class="title-line">This is a GIT demo app.</p>
+    <img alt="logo" src="images/logo.png" />
+    <p class="content-line">This is content</p>
+    <p>This is foot</p>
+</body>
+```
+
+```bash
+git commit -am'修改了git.html, 准备演示多人同时修改一个文件'
+git push
+cd ../git-demo-2/
+git pull
+```
+
+### 31.2 git-demo-2工作区修改header, 并提交推送gitee
+
+```bash
+cd ../git-demo-2
+vi git.html
+```
+
+git.html的header段落改为如下
+
+```html
+    <p>This is header, modified</p>
+```
+
+```bash
+git commit -am'modify header'
+git push
+```
+
+### 31.3 git-demo工作区修改foot, 并提交推送gitee
+
+```bash
+cd ../git-demo
+vi git.html
+```
+
+git.html的foot段落改为如下
+
+```html
+    <p>This is foot, modified</p>
+```
+
+```bash
+$ git commit -am'modify foot'
+$ git push
+To gitee.com:ericqy/git-demo.git
+ ! [rejected]        feature/add_git_commands -> feature/add_git_commands (non-fast-forward)
+error: 推送一些引用到 'git@gitee.com:ericqy/git-demo.git' 失败
+提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。
+提示：再次推送前，先与远程变更合并（如 'git pull ...'）。详见
+提示：'git push --help' 中的 'Note about fast-forwards' 小节。
+```
+
+_因为git.html在另外一个工作区已修改并提交, 远程仓库上对应分支的当前commit与本地不一致, 因此无法push._
+
+### merge后重新push, 成功完成合并
+
+```bash
+$ git fetch --all
+正在获取 gitee
+$ git branch -av
+  another-fix                            1a04d7a 演示分离头指针
+* feature/add_git_commands               5c0622c [领先 1，落后 1] modify foot
+  fix-html                               1a04d7a 演示分离头指针
+  master                                 2a00827 不同人修改了不同文件如何处理
+  remotes/gitee/another-fix              1a04d7a 演示分离头指针
+  remotes/gitee/feature/add_git_commands 48d0926 modify header
+  remotes/gitee/fix-html                 1a04d7a 演示分离头指针
+  remotes/gitee/master                   2a00827 不同人修改了不同文件如何处理
+$ git merge gitee/feature/add_git_commands
+自动合并 git.html
+Merge made by the 'recursive' strategy.
+ git.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ git push
+枚举对象中: 10, 完成.
+对象计数中: 100% (10/10), 完成.
+使用 4 个线程进行压缩
+压缩对象中: 100% (6/6), 完成.
+写入对象中: 100% (6/6), 609 字节 | 304.00 KiB/s, 完成.
+总共 6 （差异 4），复用 0 （差异 0）
+remote: Powered by GITEE.COM [GNK-6.3]
+To gitee.com:ericqy/git-demo.git
+   48d0926..204d415  feature/add_git_commands -> feature/add_git_commands
 ```
