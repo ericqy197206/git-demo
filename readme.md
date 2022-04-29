@@ -1338,3 +1338,16 @@ something append to text.
 ```
 
 _需要merge后手工修改new-user.txt的内容，确保没有错误后再提交仓库._
+
+## 33 修改了文件内容，同时另外有人修改了文件名
+
+先提交的正常commit&push, 后提交的用git pull先合并然后提交即可，git可自动识别并合并处理，过程略。
+
+## 34 不同人将同一个文件改成了不同的名字
+
+例如:
+
+1. 用户1将文件A改名成为B, commit & push
+2. 用户2将文件A改名成为C, commit & push
+
+用户2在git push时会报错. 用户2进行git pull拉取后(同时做了merge), 会发现B和C两个文件都存在, 手工调整B和C两个文件(例如删除其中之一), commit & push后, 冲突解决
