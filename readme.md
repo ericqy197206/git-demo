@@ -1351,3 +1351,9 @@ _需要merge后手工修改new-user.txt的内容，确保没有错误后再提�
 2. 用户2将文件A改名成为C, commit & push
 
 用户2在git push时会报错. 用户2进行git pull拉取后(同时做了merge), 会发现B和C两个文件都存在, 手工调整B和C两个文件(例如删除其中之一), commit & push后, 冲突解决
+
+## 35 禁止向集成分支执行push -f
+
+__!!!多人合作的集成分支，禁止执行push -f强制推送，有可能会覆盖其他人提交的工作!!!__
+
+例如可以在本例 git reset --hard XXXXcommit, 重置到之前的某一个commit, 然后push -f到远端, 这个XXXXcommit之后的提交在远端仓库就永久丢失了.
